@@ -12,7 +12,7 @@ const MemeForm = () => {
         const tagArray = tags.split(',').map(tag => tag.trim())
 
         try{
-            const res = await axios.post('http://localhost:3001/api/memes/submit',{
+            const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/memes/submit`,{
                 title,
                 image,
                 tags: tagArray

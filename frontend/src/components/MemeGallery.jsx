@@ -7,6 +7,8 @@ import down_2 from '../images/down_2.svg';
 import up_2 from '../images/up_2.svg';
 import '../css/MemeGallery.css';
 
+const API_URL = process.env.REACT_APP_API_BASE_URL;
+
 const MemeGallery = () => {
   const [memes, setMemes] = useState([]);
   const [votingStates, setVotingStates] = useState({});
@@ -15,7 +17,7 @@ const MemeGallery = () => {
 
   const fetchMemes = async () => {
     try {
-      const res = await axios.get('http://localhost:3001/api/memes/all');
+      const res = await axios.get(`${API_URL}/api/memes/all`);
       setMemes(res.data);
     } catch (err) {
       console.error('Error fetching memes:', err);
@@ -25,7 +27,7 @@ const MemeGallery = () => {
   useEffect(() => {
     fetchMemes();
 
-    socketRef.current = io('http://localhost:3001');
+    socketRef.current = io(`${API_URL}`);
 
     socketRef.current.on('vote-update', ({ memeId, upvotes }) => {
       setMemes(prev =>
@@ -66,7 +68,7 @@ const MemeGallery = () => {
           return meme;
         })
       );
-      const response = await axios.post(`http://localhost:3001/api/memes/${id}/vote`, { type });
+      const response = await axios.post(`${API_URL}/api/memes/${id}/vote`, { type });
 
       if (response.data && response.data.data && response.data.data.upvotes !== undefined) {
         setMemes(prev =>
@@ -212,7 +214,7 @@ const Leaderboard = ({ memes }) => {
   const fetchLeaderboard = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:3001/api/memes/leaderboard?top=10');
+      const response = await axios.get(`${API_URL}/api/memes/leaderboard?top=10`);
       setLeaderboardData(response.data);
     } catch (error) {
       console.error('Error fetching leaderboard:', error);
