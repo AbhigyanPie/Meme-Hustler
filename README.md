@@ -61,9 +61,11 @@ This is a chaotic, fast-shipped, glitch-laced hackathon project — bold and mes
 Create a .env file in both the backend and frontend directories with the following variables
 
 SUPABASE_URL=your-supabase-url
+
 SUPABASE_ANON_KEY=your-supabase-anon-key
 
 GEMINI_API_KEY=your-google-gemini-api-key
+
 GEMINI_URL=https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent
 
 ### 🔧 Clone and Install
